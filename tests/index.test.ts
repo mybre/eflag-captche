@@ -1,4 +1,4 @@
-import { hello } from '@arvinxu/npm-template';
+import { hello } from '@eflag/captcha';
 
 test('hello', () => {
   expect(hello()).toBe('world');
