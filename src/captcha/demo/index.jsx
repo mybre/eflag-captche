@@ -3,7 +3,7 @@ import { useRef } from 'react';
 
 export default () => {
   const ref = useRef();
-  const [run] = useCaptcha({ path: 'http://192.168.1.186:9008/pmms/api/v1', type: 'slide' });
+  const [run] = useCaptcha({ path: 'dev-api/auth/captcha', type: 'slide' });
   const click = () => {
     ref.current?.verify();
   };
@@ -11,7 +11,7 @@ export default () => {
   return (
     <Captcha
       onSuccess={(data) => console.log(data)}
-      path="http://192.168.1.186:9008/pmms/api/v1"
+      path="dev-api/auth/captcha"
       type="slide"
       ref={ref}
     >
