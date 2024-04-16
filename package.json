@@ -1,6 +1,6 @@
 {
   "name": "@eflag/captcha",
-  "version": "1.11.1",
+  "version": "1.4.0",
   "description": "a npm develop template",
   "keywords": [
     "npm",
@@ -97,9 +97,5 @@
     "stylelint": "^15",
     "typescript": "^5",
     "vitest": "latest"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org"
   }
 }
