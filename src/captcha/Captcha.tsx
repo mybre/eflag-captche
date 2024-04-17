@@ -92,9 +92,8 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
       check(baseURL, path, data)
         .then(function (res) {
           const {success:su, code , msg, message, data} = res
-          console.log(res, 'res')
           if (su || code === 200) {
-            success(data);
+            success(second);
           } else {
             setError(msg || message);
             onFail(msg || message);
