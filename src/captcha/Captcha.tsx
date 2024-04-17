@@ -22,6 +22,7 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
     path,
     className,
     style,
+    baseURL,
   } = props;
   const [visible, toggle] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -37,7 +38,7 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
   const fetch = async () => {
     toggle(true);
     const vr = Anchor[captchaType];
-    const { success, message, data } = await picture(path, {
+    const { success, message, data } = await picture(baseURL,path, {
       captchaType: vr.captchaType,
       clientUid: localStorage.getItem(vr.name),
       ts: Date.now(),
@@ -88,7 +89,7 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
         clientUid: localStorage.getItem(vr.name),
         ts: Date.now(),
       };
-      check(path, data)
+      check(baseURL, path, data)
         .then(function (res) {
           if (res.success) {
             success(second);
