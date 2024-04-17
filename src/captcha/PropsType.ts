@@ -42,5 +42,5 @@ export interface CaptchaProps extends BaseTypeProps {
 
   children?: ReactNode;
 
-  baseURL?: string;
+  baseURL?: string | undefined;
 }
