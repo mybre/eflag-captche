@@ -38,17 +38,17 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
   const fetch = async () => {
     toggle(true);
     const vr = Anchor[captchaType];
-    const { success, message, data } = await picture(baseURL,path, {
+    const { code, success, msg,  message, data } = await picture(baseURL,path, {
       captchaType: vr.captchaType,
       clientUid: localStorage.getItem(vr.name),
       ts: Date.now(),
     });
-    if (success && data) {
+    if (code === 200 || (success && data)) {
       setError('');
       setCaptcha(vr.data(data));
     } else {
-      setError(message || '请刷新页面再试');
-      onFail(message || '请刷新页面再试');
+      setError(msg || message || '请刷新页面再试');
+      onFail(msg || message || '请刷新页面再试');
     }
   };
 
@@ -91,14 +91,16 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
       };
       check(baseURL, path, data)
         .then(function (res) {
-          if (res.success) {
-            success(second);
+          const {success:su, code , msg, message, data} = res
+          console.log(res, 'res')
+          if (su || code === 200) {
+            success(data);
           } else {
-            setError(res.message);
-            onFail(res.message);
+            setError(msg || message);
+            onFail(msg || message);
             fail();
           }
-          resolve(res.success);
+          resolve(true);
         })
         .catch(function () {
           return resolve(false);
@@ -133,10 +135,9 @@ const Captcha: FC<CaptchaProps> = forwardRef((props, ref) => {
     if (!captcha.image) {
       return <Loading />;
     }
-    if (['auto', 'slide'].includes(captchaType)) {
+    if (['slide'].includes(captchaType)) {
       return <Slider onValid={valid} onCancel={cancel} onReloadPic={fetch} captcha={captcha} />;
     }
-    return <Points onValid={valid} captcha={captcha} />;
   };
   return (
     <div className={classNames(bem(), className)} style={style}>
